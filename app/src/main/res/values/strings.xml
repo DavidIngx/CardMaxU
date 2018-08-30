@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CardMax</string>
+    <string name="app_name">Card Max</string>
     <string name="title_home">Carnet</string>
     <string name="title_dashboard">Muro</string>
     <string name="title_notifications">Perfil</string>

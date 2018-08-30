@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
     private FrameLayout mainFrame;
     private MuroFragment murofrag;
-    private NotificacionFragment notifrag;
-    private PerfilFragment perfilfrag;
+    private PerfilFragment notifrag;
+    private CarnetFragment perfilfrag;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -54,9 +54,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         murofrag = new MuroFragment();
-        perfilfrag = new PerfilFragment();
-        notifrag = new NotificacionFragment();
+        perfilfrag = new CarnetFragment();
+        notifrag = new PerfilFragment();
         mainFrame = (FrameLayout) findViewById(R.id.mainfragment);
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
