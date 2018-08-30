@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "742443353138",
+    "firebase_url": "https://cardmax-b08e3.firebaseio.com",
+    "project_id": "cardmax-b08e3",
+    "storage_bucket": "cardmax-b08e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:742443353138:android:f14c1a23305cd0cb",
+        "android_client_info": {
+          "package_name": "com.numa.cardmax.cardmaxu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "742443353138-ep71ji08m3nco1p14bk99o573jm89sdc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDON83SAM8FAe-O4uYdXWZs6ZuW8Ma4zzc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

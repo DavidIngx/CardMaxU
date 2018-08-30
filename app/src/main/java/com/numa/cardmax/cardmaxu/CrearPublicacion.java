@@ -1,6 +1,7 @@
 package com.numa.cardmax.cardmaxu;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -19,7 +20,7 @@ public class CrearPublicacion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_publicacion);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Button galeria = findViewById(R.id.btn_galeria);
         Button foto = findViewById(R.id.btn_camara);
 
@@ -52,6 +53,7 @@ public class CrearPublicacion extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
+
         ImageView miniatura = findViewById(R.id.contenedor_imagen);
         Button aceptar = findViewById(R.id.btn_aceptar);
 
