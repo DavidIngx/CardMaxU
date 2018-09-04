@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "742443353138-nap8ln4apsk7av0hmomfqhl2rho49n2f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.numa.cardmax.cardmaxu",
+            "certificate_hash": "7e63e99b6a1a81feaaf03747345c5fffed77bd8d"
+          }
+        },
+        {
           "client_id": "742443353138-ep71ji08m3nco1p14bk99o573jm89sdc.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "742443353138-ep71ji08m3nco1p14bk99o573jm89sdc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
