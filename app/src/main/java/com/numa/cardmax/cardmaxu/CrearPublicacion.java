@@ -54,8 +54,6 @@ public class CrearPublicacion extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
-
-
         video = (VideoView)findViewById(R.id.videoView);
         edit_titulo = (EditText) findViewById(R.id.titulo_publicacion);
         edit_contenido = (EditText) findViewById(R.id.contenido_publicacion);
@@ -66,8 +64,6 @@ public class CrearPublicacion extends AppCompatActivity {
         nombre_imagen = System.currentTimeMillis();
         c.set(Calendar.DATE, 0);
         fecha_publicacion = c.getTime().toString();
-
-
 
 
         galeria.setOnClickListener(new View.OnClickListener() {
@@ -102,12 +98,10 @@ public class CrearPublicacion extends AppCompatActivity {
         final ImageView miniatura = findViewById(R.id.contenedor_imagen);
         Button aceptar = findViewById(R.id.btn_aceptar);
 
-
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             final Bitmap imageBitmap = (Bitmap) extras.get("data");
             miniatura.setImageBitmap(imageBitmap);
-
 
             aceptar.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -130,10 +124,8 @@ public class CrearPublicacion extends AppCompatActivity {
                     // While the file names are the same, the references point to different files
                     mountainsRef.getName().equals(mountainImagesRef.getName());    // true
                     mountainsRef.getPath().equals(mountainImagesRef.getPath());    // false
-
                     UploadTask uploadTask;
                     uploadTask= mountainsRef.putBytes(byteArray);
-
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
@@ -166,14 +158,15 @@ public class CrearPublicacion extends AppCompatActivity {
                                 }
                             });
 
-                            Toast.makeText(CrearPublicacion.this,"Publicado",Toast.LENGTH_LONG);
-                            Intent aceptarx;
-                            aceptarx = new Intent(CrearPublicacion.this, MainActivity.class);
-                            startActivity(aceptarx);
                         }
                     });
+
+                    Toast.makeText(CrearPublicacion.this,"Publicado",Toast.LENGTH_LONG).show();
+                    Intent aceptarx;
+                    aceptarx = new Intent(CrearPublicacion.this, MainActivity.class);
+                    startActivity(aceptarx);
                 }
-            });
+              });
         }
 
         final Uri path = data.getData();
@@ -182,13 +175,13 @@ public class CrearPublicacion extends AppCompatActivity {
            System.out.println(buscar);
            int buscando = buscar.indexOf("video");
             if(buscando != -1) {
+                miniatura.setVisibility(View.INVISIBLE);
                 video.setVisibility(View.VISIBLE);
                 video.setVideoURI(path);
                 video.start();
             }else{
                 video.setVisibility(View.INVISIBLE);
                 miniatura.setImageURI(path);
-
             }
             aceptar.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -226,20 +219,14 @@ public class CrearPublicacion extends AppCompatActivity {
                                     refDb.child("muro_publicaciones").child(id).setValue(muro_publicaciones);
                                 }
                             });
-
-                            Toast.makeText(CrearPublicacion.this, "Publicado", Toast.LENGTH_SHORT).show();
                         }
                     });
-                  Intent aceptarx;
+                    Toast.makeText(CrearPublicacion.this, "Publicado", Toast.LENGTH_SHORT).show();
+                    Intent aceptarx;
                     aceptarx = new Intent(CrearPublicacion.this, MainActivity.class);
                     startActivity(aceptarx);
                 }
             });
         }
-
     }
-
-
-
-
 }

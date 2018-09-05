@@ -16,9 +16,6 @@ public class ObjetoMuro {
     public int dislike_publicacion;
 
 
-    public ObjetoMuro() {
-    }
-
 
     public ObjetoMuro(String titulo_publicacion, String contenido_publicacion, String fecha_publicacion, String imagen_publicacion, String video_publicacion, int comentarios_publicacion, int like_publicacion, int dislike_publicacion) {
         this.titulo_publicacion = titulo_publicacion;
@@ -94,4 +91,10 @@ public class ObjetoMuro {
     public void setDislike_publicacion(int dislike_publicacion) {
         this.dislike_publicacion = dislike_publicacion;
     }
+
+
+    public ObjetoMuro() {
+    }
+
+
 }
