@@ -59,9 +59,9 @@ public class MuroFragment extends Fragment {
 
 
 
-        ArrayList<Fuente> Lista  = new ArrayList<Fuente>();
-        Lista.add(new Fuente("Nier: La Automata", "https://images.g2a.com/newlayout/1080x1080/1x1x0/5b5a9c5e75d6/598da7f4ae653a0974657054",0));
-        Lista.add(new Fuente("Nier: La Automata", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXnhIx24kVb7xkjkleVxJa5ghUaDWohfbewleCoXQq5iE5IP-FAg",0));
+        ArrayList<ObjetoMuro> Lista  = new ArrayList<ObjetoMuro>();
+        Lista.add(new ObjetoMuro("Nier: La Automata","contenido", "02/05/18", "https://images.g2a.com/newlayout/1080x1080/1x1x0/5b5a9c5e75d6/598da7f4ae653a0974657054","sin video",0,0,0));
+
 
 
 

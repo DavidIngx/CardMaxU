@@ -15,10 +15,10 @@ import java.util.List;
 public class adaptador extends RecyclerView.Adapter<viewHolder> {
     private Context cxt;
 
-    List<Fuente> listaObjeto;
+    List<ObjetoMuro> listaObjeto;
 
 
-    public adaptador(List<Fuente> listaObjeto) {
+    public adaptador(List<ObjetoMuro> listaObjeto) {
         this.listaObjeto = listaObjeto;
     }
 
@@ -36,10 +36,10 @@ public class adaptador extends RecyclerView.Adapter<viewHolder> {
 
 
         Glide.with(holder.imagen.getContext())
-                .load(listaObjeto.get(position).getImagen())
+                .load(listaObjeto.get(position).getImagen_publicacion())
                 .into(holder.imagen);
 
-        holder.titulo.setText(listaObjeto.get(position).getTitulo());
+        holder.titulo.setText(listaObjeto.get(position).getTitulo_publicacion());
 
 
     }
