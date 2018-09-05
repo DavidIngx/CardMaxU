@@ -4,7 +4,9 @@ package com.numa.cardmax.cardmaxu;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -37,11 +41,12 @@ import static android.support.constraint.Constraints.TAG;
  */
 public class MuroFragment extends Fragment {
 
-
-    private RecyclerView mRecyclerView;
+    private DatabaseReference mDatabase;
+    private RecyclerView contenedorx;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
+    private  ArrayList<ObjetoMuro> Lista;
+    private adaptador xx;
 
     public MuroFragment() {
         // Required empty public constructor
@@ -53,29 +58,58 @@ public class MuroFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_muro, container, false);
-
-        mRecyclerView = (RecyclerView)view.findViewById(R.id.recycler_muro);
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
 
-        ArrayList<ObjetoMuro> Lista  = new ArrayList<ObjetoMuro>();
-        Lista.add(new ObjetoMuro("Nier: La Automata","contenido", "02/05/18", "https://images.g2a.com/newlayout/1080x1080/1x1x0/5b5a9c5e75d6/598da7f4ae653a0974657054","sin video",2,10,0));
-
-        Lista.add(new ObjetoMuro("Nier","Nier: Automata (ニーア オートマタ Nīa Ōtomata?) es un videojuego de rol de acción desarrollado por PlatinumGames y publicado por Square Enix para PlayStation 4, Microsoft Windows y Xbox One.", "08/05/18", "https://amaterasu.com.ar/wp-content/uploads/2018/02/nier-automata-2.jpg","sin video",2,100,0));
+        Lista  = new ArrayList<ObjetoMuro>();
 
 
+        xx = new adaptador(Lista);
 
 
-
-        RecyclerView contenedorx =(RecyclerView) view.findViewById(R.id.recycler_muro);
+        contenedorx =(RecyclerView) view.findViewById(R.id.recycler_muro);
         contenedorx.setHasFixedSize(true);
         LinearLayoutManager layout = new LinearLayoutManager(getContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        contenedorx.setAdapter(new adaptador(Lista) );
+        contenedorx.setAdapter(xx);
         contenedorx.setLayoutManager(layout);
 
 
+
+
+        ValueEventListener firebaselistener  = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+
+
+
+
+                    DataSnapshot muro = dataSnapshot.child("muro_publicaciones");
+
+                    Iterable<DataSnapshot> muroChildren = muro.getChildren();
+
+
+                    for (DataSnapshot murox : muroChildren) {
+                        ObjetoMuro p = murox.getValue(ObjetoMuro.class);
+                        Lista.add(p);
+                    }
+
+
+              
+                xx.notifyDataSetChanged();
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        mDatabase.addValueEventListener(firebaselistener);
 
 
         FloatingActionButton agregar ;
