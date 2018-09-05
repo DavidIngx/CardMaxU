@@ -34,12 +34,16 @@ public class adaptador extends RecyclerView.Adapter<viewHolder> {
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
 
+        holder.titulo.setText(listaObjeto.get(position).getTitulo_publicacion());
+        holder.fecha.setText(listaObjeto.get(position).getFecha_publicacion());
+        holder.contenido.setText(listaObjeto.get(position).getContenido_publicacion());
 
         Glide.with(holder.imagen.getContext())
                 .load(listaObjeto.get(position).getImagen_publicacion())
                 .into(holder.imagen);
+        holder.info.setText(listaObjeto.get(position).getLike_publicacion()+" Likes - "+listaObjeto.get(position).getComentarios_publicacion()+" Comentarios");
 
-        holder.titulo.setText(listaObjeto.get(position).getTitulo_publicacion());
+
 
 
     }

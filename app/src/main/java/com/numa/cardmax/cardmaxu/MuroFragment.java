@@ -60,9 +60,9 @@ public class MuroFragment extends Fragment {
 
 
         ArrayList<ObjetoMuro> Lista  = new ArrayList<ObjetoMuro>();
-        Lista.add(new ObjetoMuro("Nier: La Automata","contenido", "02/05/18", "https://images.g2a.com/newlayout/1080x1080/1x1x0/5b5a9c5e75d6/598da7f4ae653a0974657054","sin video",0,0,0));
+        Lista.add(new ObjetoMuro("Nier: La Automata","contenido", "02/05/18", "https://images.g2a.com/newlayout/1080x1080/1x1x0/5b5a9c5e75d6/598da7f4ae653a0974657054","sin video",2,10,0));
 
-
+        Lista.add(new ObjetoMuro("Nier","Nier: Automata (ニーア オートマタ Nīa Ōtomata?) es un videojuego de rol de acción desarrollado por PlatinumGames y publicado por Square Enix para PlayStation 4, Microsoft Windows y Xbox One.", "08/05/18", "https://amaterasu.com.ar/wp-content/uploads/2018/02/nier-automata-2.jpg","sin video",2,100,0));
 
 
 
