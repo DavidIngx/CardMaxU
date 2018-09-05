@@ -55,9 +55,14 @@ public class MuroFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_muro, container, false);
 
         mRecyclerView = (RecyclerView)view.findViewById(R.id.recycler_muro);
+
+
+
+
         ArrayList<Fuente> Lista  = new ArrayList<Fuente>();
-        Lista.add(new Fuente("Nier: La Automata", R.drawable.hola,0));
-        Lista.add(new Fuente("Full: Brotherhood", R.drawable.fullachimist,0));
+        Lista.add(new Fuente("Nier: La Automata", "https://images.g2a.com/newlayout/1080x1080/1x1x0/5b5a9c5e75d6/598da7f4ae653a0974657054",0));
+        Lista.add(new Fuente("Nier: La Automata", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXnhIx24kVb7xkjkleVxJa5ghUaDWohfbewleCoXQq5iE5IP-FAg",0));
+
 
 
 

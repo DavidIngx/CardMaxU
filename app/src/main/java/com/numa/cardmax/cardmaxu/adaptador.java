@@ -1,16 +1,22 @@
 package com.numa.cardmax.cardmaxu;
 
+import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class adaptador extends RecyclerView.Adapter<viewHolder> {
+    private Context cxt;
 
     List<Fuente> listaObjeto;
+
 
     public adaptador(List<Fuente> listaObjeto) {
         this.listaObjeto = listaObjeto;
@@ -27,8 +33,15 @@ public class adaptador extends RecyclerView.Adapter<viewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
+
+
+        Glide.with(holder.imagen.getContext())
+                .load(listaObjeto.get(position).getImagen())
+                .into(holder.imagen);
+
         holder.titulo.setText(listaObjeto.get(position).getTitulo());
-        holder.imagen.setImageResource(listaObjeto.get(position).getImagen());
+
+
     }
 
     @Override

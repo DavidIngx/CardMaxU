@@ -3,10 +3,10 @@ package com.numa.cardmax.cardmaxu;
 public class Fuente {
 
     String titulo;
-    int imagen;
+    String imagen;
     int estado;
 
-    public Fuente(String titulo, int imagen, int estado) {
+    public Fuente(String titulo, String imagen, int estado) {
         this.titulo = titulo;
         this.imagen = imagen;
         this.estado = estado;
@@ -20,11 +20,11 @@ public class Fuente {
         this.titulo = titulo;
     }
 
-    public int getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(int imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
