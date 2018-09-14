@@ -126,8 +126,8 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/Like"
-                        android:layout_width="0dp"
+                        android:id="@+id/like"
+                        android:layout_width="5dp"
                         android:layout_height="33dp"
                         android:layout_weight="1"
                         android:background="@null"
@@ -138,11 +138,23 @@
                         android:textColor="@color/text" />
 
                     <Button
-                        android:background="@null"
-                        android:id="@+id/comentar"
-                        android:layout_width="40dp"
+                        android:id="@+id/dislike"
+                        android:layout_width="10dp"
                         android:layout_height="33dp"
                         android:layout_weight="1"
+                        android:background="@null"
+                        android:drawableLeft="@drawable/dislike"
+
+                        android:text="DisLike"
+                        android:textAllCaps="false"
+                        android:textColor="@color/text" />
+
+                    <Button
+                        android:id="@+id/comentar"
+                        android:layout_width="20dp"
+                        android:layout_height="33dp"
+                        android:layout_weight="1"
+                        android:background="@null"
                         android:drawableLeft="@drawable/baseline_comment_black_18dp"
 
                         android:text="Comentar"
@@ -150,11 +162,11 @@
                         android:textColor="@color/text" />
 
                     <Button
-                        android:background="@null"
                         android:id="@+id/compartir"
-                        android:layout_width="40dp"
+                        android:layout_width="20dp"
                         android:layout_height="33dp"
                         android:layout_weight="1"
+                        android:background="@null"
                         android:drawableLeft="@drawable/baseline_share_black_18dp"
 
                         android:text="Compartir"
