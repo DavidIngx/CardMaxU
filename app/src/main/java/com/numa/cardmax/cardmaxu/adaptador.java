@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class adaptador extends RecyclerView.Adapter<viewHolder> {
@@ -52,4 +53,14 @@ public class adaptador extends RecyclerView.Adapter<viewHolder> {
     public int getItemCount() {
         return listaObjeto.size();
     }
+
+
+
+    public void setfilter(List<ObjetoMuro> newlistaObjeto){
+        listaObjeto = new ArrayList<>();
+        listaObjeto.addAll(newlistaObjeto);
+        notifyDataSetChanged();
+    }
+
+
 }

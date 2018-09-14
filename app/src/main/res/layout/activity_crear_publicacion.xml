@@ -4,107 +4,199 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".CrearPublicacion"
-    android:orientation="vertical">
+    >
 
-    <LinearLayout
-        android:layout_width="344dp"
-        android:layout_height="495dp"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageButton
+            android:id="@+id/close"
+            android:layout_width="33dp"
+            android:layout_height="34dp"
+            android:layout_margin="5dp"
+            android:background="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_dialog_close_dark" />
 
         <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Titulo de Publicacion" />
+            android:layout_margin="10dp"
+            android:text="Publicar"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.147"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-        <EditText
-            android:id="@+id/titulo_publicacion"
+
+
+    </android.support.v7.widget.Toolbar>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:paddingTop="43dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
+        tools:layout_editor_absoluteX="0dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/baseline_account_circle_black_48dp" />
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Contenido" />
-
-        <EditText
-            android:id="@+id/contenido_publicacion"
-            android:layout_width="match_parent"
-            android:layout_height="77dp"
-            android:ems="10"
-            android:inputType="textMultiLine" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="256dp">
-
-            <ImageView
-                android:id="@+id/contenedor_imagen"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/codigo" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <VideoView
-                android:id="@+id/videoView"
-                android:layout_width="340dp"
-                android:layout_height="250dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:visibility="invisible" />
-        </RelativeLayout>
+                <EditText
+                    android:id="@+id/titulo_publicacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@null"
+                    android:ems="10"
+                    android:focusable="auto"
+                    android:hint="Introduce un titulo para tu publicacion"
+                    android:inputType="textPersonName"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/contenido_publicacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="77dp"
+                    android:layout_margin="10dp"
+                    android:background="@null"
+                    android:ems="10"
+                    android:gravity="top"
+                    android:hint="Comparte un artículo, foto , video o idea."
+                    android:inputType="textMultiLine"
+                    android:textSize="12sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/contenedor_imagen"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_margin="10dp"
+                        android:scaleType="centerCrop" />
+
+                    <VideoView
+                        android:id="@+id/videoView"
+                        android:layout_width="340dp"
+                        android:layout_height="250dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_margin="10dp"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <Button
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                app:srcCompat="@drawable/baseline_settings_black_24dp" />
+
+            <ImageButton
+                android:id="@+id/btn_foto"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                app:srcCompat="@drawable/baseline_add_a_photo_black_24dp" />
+
+            <ImageButton
+                android:id="@+id/btn_video"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                app:srcCompat="@drawable/baseline_video_call_black_24dp" />
+
+            <ImageButton
                 android:id="@+id/btn_galeria"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Galeria" />
+                android:background="@null"
+                app:srcCompat="@drawable/ic_dashboard_black_24dp" />
 
             <Button
-                android:id="@+id/btn_camara"
+                android:id="@+id/btn_publicar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="FOTO" />
-
-            <Button
-                android:id="@+id/btn_aceptar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="PUBLICAR" />
-
+                android:text="Publicar" />
         </LinearLayout>
-    </LinearLayout>
+    </android.support.v7.widget.CardView>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="396dp"
-        android:layout_height="9dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+
 </android.support.constraint.ConstraintLayout>

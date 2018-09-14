@@ -4,17 +4,24 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.support.design.widget.BottomNavigationView;
 import android.widget.VideoView;
+import android.support.v7.widget.Toolbar;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
@@ -34,6 +42,7 @@ public class CrearPublicacion extends AppCompatActivity {
     private EditText edit_titulo;
     private EditText edit_contenido;
     private String imagen_publicacion;
+    private ImageButton cerrar;
     private Long nombre_imagen;
     private VideoView video;
     private String titulo_publicacion;
@@ -44,8 +53,15 @@ public class CrearPublicacion extends AppCompatActivity {
     private int comentarios_publicacion = 0;
     private int likes_publicacion = 0;
     private int dislikes_publicacion = 0;
-    private ProgressBar barra ;
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_publicar, menu);
+
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +69,31 @@ public class CrearPublicacion extends AppCompatActivity {
         setContentView(R.layout.activity_crear_publicacion);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        Toolbar actionbarx = (Toolbar)findViewById(R.id.toolbar2);
+        setSupportActionBar(actionbarx);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        cerrar = (ImageButton)findViewById(R.id.close);
         video = (VideoView)findViewById(R.id.videoView);
         edit_titulo = (EditText) findViewById(R.id.titulo_publicacion);
         edit_contenido = (EditText) findViewById(R.id.contenido_publicacion);
-        Button galeria = (Button) findViewById(R.id.btn_galeria);
-        Button foto = (Button) findViewById(R.id.btn_camara);
+        ImageButton galeria = (ImageButton) findViewById(R.id.btn_galeria);
+        ImageButton foto = (ImageButton) findViewById(R.id.btn_foto);
         mDatabase = FirebaseDatabase.getInstance();
         refDb = mDatabase.getReference();
         nombre_imagen = System.currentTimeMillis();
         c.set(Calendar.DATE, 0);
         fecha_publicacion = c.getTime().toString();
+
+
+
+        cerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
 
 
         galeria.setOnClickListener(new View.OnClickListener() {
@@ -90,13 +120,12 @@ public class CrearPublicacion extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
 
         final ImageView miniatura = findViewById(R.id.contenedor_imagen);
-        Button aceptar = findViewById(R.id.btn_aceptar);
+        Button aceptar = findViewById(R.id.btn_publicar);
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
@@ -106,8 +135,7 @@ public class CrearPublicacion extends AppCompatActivity {
             aceptar.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     final String id = refDb.push().getKey();
-                    barra = (ProgressBar)findViewById(R.id.progressBar);
-                    barra.setProgress(0);
+
 
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     imageBitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
@@ -225,8 +253,13 @@ public class CrearPublicacion extends AppCompatActivity {
                     Intent aceptarx;
                     aceptarx = new Intent(CrearPublicacion.this, MainActivity.class);
                     startActivity(aceptarx);
+
                 }
             });
         }
     }
+
+
+
+
 }
