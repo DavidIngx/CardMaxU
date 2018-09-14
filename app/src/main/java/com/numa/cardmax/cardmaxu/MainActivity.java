@@ -23,7 +23,7 @@ import com.numa.cardmax.cardmaxu.Fragmentos.CarnetFragment;
 import com.numa.cardmax.cardmaxu.Fragmentos.MuroFragment;
 import com.numa.cardmax.cardmaxu.Fragmentos.PerfilFragment;
 
-public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     private FrameLayout mainFrame;
@@ -76,13 +76,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         inflater.inflate(R.menu.navigation, menu);
 
         menu2 =menu.findItem(R.id.action_search);
-
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView =
-                (SearchView) searchItem.getActionView();
-        searchView.setQueryHint("Search...");
-        searchView.setOnQueryTextListener(this);
-
 
         return true;
     }
@@ -166,22 +159,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
 
-    @Override
-    public boolean onQueryTextSubmit( String query) {
 
-
-        Toast.makeText(this, query, Toast.LENGTH_LONG).show();
-
-
-
-        return false;
-    }
-
-   @Override
-    public boolean onQueryTextChange(String newText) {
-
-        return false;
-    }
 
 
     public void baroculta(View v){

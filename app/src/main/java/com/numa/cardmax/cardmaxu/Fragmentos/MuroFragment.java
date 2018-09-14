@@ -182,41 +182,7 @@ public class MuroFragment extends Fragment implements RecyclerView.OnTouchListen
 
 
     /*
-        Query q = mDatabase.child("muro_publicaciones")
-                .orderByChild("titulo_publicacion")
-                .startAt(qx)
-                .endAt(qx+"\uf8ff");
 
-
-
-
-
-                q.addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-            Lista.removeAll(Lista);
-            Iterable<DataSnapshot> muroChildren = dataSnapshot.getChildren();
-
-            int count=0;
-            for (DataSnapshot murox : muroChildren) {
-                ObjetoMuro p = murox.getValue(ObjetoMuro.class);
-                Lista.add(0, p);
-                count+=1;
-                Toast.makeText(getContext(),"Encontrados .. "+count,Toast.LENGTH_LONG).show();
-
-
-            }
-            xx.notifyDataSetChanged();
-
-
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
-    });
     */
 
 
