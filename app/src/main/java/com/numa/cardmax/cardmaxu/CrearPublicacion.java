@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.Toast;
 import android.support.design.widget.BottomNavigationView;
 import android.widget.VideoView;
@@ -53,7 +54,9 @@ public class CrearPublicacion extends AppCompatActivity {
     private int comentarios_publicacion = 0;
     private int likes_publicacion = 0;
     private int dislikes_publicacion = 0;
-
+    private Button clear;
+    private ImageButton foto, addvideo;
+    private ImageView miniatura;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,20 +75,30 @@ public class CrearPublicacion extends AppCompatActivity {
         Toolbar actionbarx = (Toolbar)findViewById(R.id.toolbar2);
         setSupportActionBar(actionbarx);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
+        addvideo = (ImageButton)findViewById(R.id.btn_video_add);
+        clear =(Button)findViewById(R.id.btn_clear);
         cerrar = (ImageButton)findViewById(R.id.close);
         video = (VideoView)findViewById(R.id.videoView);
         edit_titulo = (EditText) findViewById(R.id.titulo_publicacion);
         edit_contenido = (EditText) findViewById(R.id.contenido_publicacion);
         ImageButton galeria = (ImageButton) findViewById(R.id.btn_galeria);
-        ImageButton foto = (ImageButton) findViewById(R.id.btn_foto);
+        foto = (ImageButton) findViewById(R.id.btn_foto);
         mDatabase = FirebaseDatabase.getInstance();
         refDb = mDatabase.getReference();
         nombre_imagen = System.currentTimeMillis();
         c.set(Calendar.DATE, 0);
         fecha_publicacion = c.getTime().toString();
-
-
+        miniatura = findViewById(R.id.contenedor_imagen);
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clear.setVisibility(View.INVISIBLE);
+                miniatura.setImageBitmap(null);
+                miniatura.setImageURI(null);
+                video.setVisibility(View.INVISIBLE);
+                video.stopPlayback();
+                video.setVideoURI(null);           }
+        });
 
         cerrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +108,17 @@ public class CrearPublicacion extends AppCompatActivity {
             }
         });
 
+
+        addvideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                galleryIntent.setType("video/*");
+                startActivityForResult(galleryIntent.createChooser(galleryIntent,"Seleccione un Video"),10);
+
+            }
+        });
 
         galeria.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -124,14 +148,15 @@ public class CrearPublicacion extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
 
-        final ImageView miniatura = findViewById(R.id.contenedor_imagen);
+
         Button aceptar = findViewById(R.id.btn_publicar);
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             final Bitmap imageBitmap = (Bitmap) extras.get("data");
             miniatura.setImageBitmap(imageBitmap);
-
+            miniatura.setVisibility(View.VISIBLE);
+            clear.setVisibility(View.VISIBLE);
             aceptar.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     final String id = refDb.push().getKey();
@@ -199,16 +224,18 @@ public class CrearPublicacion extends AppCompatActivity {
 
         final Uri path = data.getData();
         if(path != null){
+            clear.setVisibility(View.VISIBLE);
            String buscar = path.toString();
-           System.out.println(buscar);
-           int buscando = buscar.indexOf("video");
+           final int buscando = buscar.indexOf("video");
             if(buscando != -1) {
                 miniatura.setVisibility(View.INVISIBLE);
                 video.setVisibility(View.VISIBLE);
                 video.setVideoURI(path);
+                video.setMediaController(new MediaController(this));
                 video.start();
             }else{
                 video.setVisibility(View.INVISIBLE);
+                miniatura.setVisibility(View.VISIBLE);
                 miniatura.setImageURI(path);
             }
             aceptar.setOnClickListener(new View.OnClickListener() {
@@ -219,7 +246,18 @@ public class CrearPublicacion extends AppCompatActivity {
                     // Create a reference to "mountains.jpg"
                     final String id = refDb.push().getKey();
                     UploadTask uploadTask ;
-                    final StorageReference riversRef = storageRef.child("images/"+nombre_imagen);
+                    final StorageReference riversRef;
+
+                    if(buscando != -1) {
+                        riversRef = storageRef.child("video/"+nombre_imagen);
+
+                    }else{
+                        riversRef = storageRef.child("images/"+nombre_imagen);
+
+                    }
+
+
+
                     uploadTask = riversRef.putFile(path);
                     // Register observers to listen for when the download is done or if it fails
                     uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -232,21 +270,49 @@ public class CrearPublicacion extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                             // ...
-                            storageRef.child("images/"+nombre_imagen).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
+
+                            if(buscando != -1) {
+                                storageRef.child("video/"+nombre_imagen).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
 
 
-                                    imagen_publicacion =uri.toString();
-                                    titulo_publicacion = edit_titulo.getText().toString();
-                                    contenido_publicacion = edit_contenido.getText().toString();
+                                        imagen_publicacion =uri.toString();
+                                        titulo_publicacion = edit_titulo.getText().toString();
+                                        contenido_publicacion = edit_contenido.getText().toString();
 
-                                    muro_publicaciones = new ObjetoMuro(titulo_publicacion,contenido_publicacion,
-                                            fecha_publicacion,imagen_publicacion,video_publicacion,
-                                            comentarios_publicacion,likes_publicacion,dislikes_publicacion);
-                                    refDb.child("muro_publicaciones").child(id).setValue(muro_publicaciones);
-                                }
-                            });
+                                        muro_publicaciones = new ObjetoMuro(titulo_publicacion,contenido_publicacion,
+                                                fecha_publicacion,imagen_publicacion,video_publicacion,
+                                                comentarios_publicacion,likes_publicacion,dislikes_publicacion);
+                                        refDb.child("muro_publicaciones").child(id).setValue(muro_publicaciones);
+                                    }
+                                });
+
+                            }else{
+
+
+
+                                storageRef.child("images/"+nombre_imagen).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+
+
+                                        imagen_publicacion =uri.toString();
+                                        titulo_publicacion = edit_titulo.getText().toString();
+                                        contenido_publicacion = edit_contenido.getText().toString();
+
+                                        muro_publicaciones = new ObjetoMuro(titulo_publicacion,contenido_publicacion,
+                                                fecha_publicacion,imagen_publicacion,video_publicacion,
+                                                comentarios_publicacion,likes_publicacion,dislikes_publicacion);
+                                        refDb.child("muro_publicaciones").child(id).setValue(muro_publicaciones);
+                                    }
+                                });
+
+
+                            }
+
+
+
                         }
                     });
                     Toast.makeText(CrearPublicacion.this, "Publicado", Toast.LENGTH_SHORT).show();

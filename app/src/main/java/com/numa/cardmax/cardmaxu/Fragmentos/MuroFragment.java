@@ -151,9 +151,7 @@ public class MuroFragment extends Fragment implements RecyclerView.OnTouchListen
                         ObjetoMuro p = murox.getValue(ObjetoMuro.class);
                         Lista.add(0, p);
                         count+=1;
-                        if (count == 10){
-                            break;
-                        }
+
                     }
                 xx.notifyDataSetChanged();
             }
