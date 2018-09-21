@@ -1,5 +1,6 @@
 package com.numa.cardmax.cardmaxu;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -9,6 +10,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +34,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -50,21 +54,21 @@ public class CrearPublicacion extends AppCompatActivity {
     private String contenido_publicacion;
     private Calendar c = Calendar.getInstance();
     private String fecha_publicacion;
-    private String video_publicacion;
     private int comentarios_publicacion = 0;
     private int likes_publicacion = 0;
     private int dislikes_publicacion = 0;
     private Button clear;
-    private ImageButton foto, addvideo;
+    private ImageButton foto, addvideo, config;
     private ImageView miniatura;
+    String[] lisItems;
+    boolean[] checkedItems;
+    ArrayList<Integer> option = new ArrayList<>();
+    private int activar_btn_megusta = 1;
+    private int activar_btn_nomegusta = 1;
+    private int activar_btn_comentario = 1;
+    private int activar_btn_compartir = 1;
+    private Button aceptar ;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_publicar, menu);
-
-        return true;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +79,12 @@ public class CrearPublicacion extends AppCompatActivity {
         Toolbar actionbarx = (Toolbar)findViewById(R.id.toolbar2);
         setSupportActionBar(actionbarx);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        aceptar = findViewById(R.id.btn_publicar);
+        lisItems=getResources().getStringArray(R.array.permitir);
+        checkedItems = new boolean[lisItems.length];
         addvideo = (ImageButton)findViewById(R.id.btn_video_add);
         clear =(Button)findViewById(R.id.btn_clear);
+        config =(ImageButton)findViewById(R.id.btn_config);
         cerrar = (ImageButton)findViewById(R.id.close);
         video = (VideoView)findViewById(R.id.videoView);
         edit_titulo = (EditText) findViewById(R.id.titulo_publicacion);
@@ -86,9 +94,102 @@ public class CrearPublicacion extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         refDb = mDatabase.getReference();
         nombre_imagen = System.currentTimeMillis();
-        c.set(Calendar.DATE, 0);
-        fecha_publicacion = c.getTime().toString();
+
+        fecha_publicacion = DateFormat.getDateInstance().format(c.getTime());
         miniatura = findViewById(R.id.contenedor_imagen);
+
+
+        aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Selecciona una Foto o un Video",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        config.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder mBilder = new AlertDialog.Builder(CrearPublicacion.this);
+               mBilder.setTitle("Ocultar");
+                mBilder.setMultiChoiceItems(lisItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                       if (isChecked){
+
+
+                           if(!option.contains(which)){
+
+                               option.add(which);
+                               System.out.println("agregue"+which);
+                           }
+                           }else{
+
+
+
+                           option.remove(which);
+                           System.out.println("remoovi"+which);
+                       }
+                    }
+                });
+                mBilder.setCancelable(false);
+                mBilder.setPositiveButton("NO PERMITIR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String item ="";
+                        for (int i = 0; i<option.size(); i++){
+                            item = item + lisItems[option.get(i)];
+                            if(i != option.size() -1){
+                                item=item+", ";
+                            }
+                        }
+                        System.out.println(item);
+
+
+                        if(item.indexOf("Me Gusta") != -1) {
+                           activar_btn_megusta = 0;
+                           System.out.println("Me Gusta OFF");
+                            }
+                            if(item.indexOf("Comentario")!= -1) {
+                                activar_btn_comentario = 0;
+                            System.out.println("Comentario OFF");
+                                }
+
+                                if(item.indexOf("No Me Gusta") != -1) {
+                                activar_btn_nomegusta = 0;
+                                System.out.println("NO Me Gusta OFF");
+                                    }
+                                    if(item.indexOf("Compartir")!= -1) {
+                                    activar_btn_compartir = 0;
+                                    System.out.println("compartir OFF");
+                        }
+
+
+                    }
+                });
+
+
+/*
+                mBilder.setNegativeButton("", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });*/
+                mBilder.setNeutralButton("Limpiar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        for(int i = 0; i< checkedItems.length;i++){
+                            checkedItems[i] = false;
+                            option.clear();
+                        }
+                    }
+                });
+                AlertDialog mDialog = mBilder.create();
+                mDialog.show();
+
+            }
+        });
+
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,7 +250,7 @@ public class CrearPublicacion extends AppCompatActivity {
         super.onActivityResult(requestCode,resultCode,data);
 
 
-        Button aceptar = findViewById(R.id.btn_publicar);
+
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
@@ -197,9 +298,9 @@ public class CrearPublicacion extends AppCompatActivity {
                                     titulo_publicacion = edit_titulo.getText().toString();
                                     contenido_publicacion = edit_contenido.getText().toString();
 
-                                    muro_publicaciones = new ObjetoMuro(titulo_publicacion,contenido_publicacion,
-                                            fecha_publicacion,imagen_publicacion,video_publicacion,
-                                            comentarios_publicacion,likes_publicacion,dislikes_publicacion);
+                                    muro_publicaciones = new ObjetoMuro(id,titulo_publicacion,contenido_publicacion,
+                                            fecha_publicacion,imagen_publicacion, comentarios_publicacion,likes_publicacion,dislikes_publicacion,
+                                            activar_btn_megusta, activar_btn_nomegusta, activar_btn_comentario,activar_btn_compartir);
                                     refDb.child("muro_publicaciones").child(id).setValue(muro_publicaciones);
                                     }
 
@@ -281,9 +382,10 @@ public class CrearPublicacion extends AppCompatActivity {
                                         titulo_publicacion = edit_titulo.getText().toString();
                                         contenido_publicacion = edit_contenido.getText().toString();
 
-                                        muro_publicaciones = new ObjetoMuro(titulo_publicacion,contenido_publicacion,
-                                                fecha_publicacion,imagen_publicacion,video_publicacion,
-                                                comentarios_publicacion,likes_publicacion,dislikes_publicacion);
+                                        muro_publicaciones = new ObjetoMuro(id, titulo_publicacion,contenido_publicacion,
+                                                fecha_publicacion,imagen_publicacion,
+                                                comentarios_publicacion,likes_publicacion,dislikes_publicacion,
+                                                activar_btn_megusta, activar_btn_nomegusta, activar_btn_comentario,activar_btn_compartir);
                                         refDb.child("muro_publicaciones").child(id).setValue(muro_publicaciones);
                                     }
                                 });
@@ -301,9 +403,10 @@ public class CrearPublicacion extends AppCompatActivity {
                                         titulo_publicacion = edit_titulo.getText().toString();
                                         contenido_publicacion = edit_contenido.getText().toString();
 
-                                        muro_publicaciones = new ObjetoMuro(titulo_publicacion,contenido_publicacion,
-                                                fecha_publicacion,imagen_publicacion,video_publicacion,
-                                                comentarios_publicacion,likes_publicacion,dislikes_publicacion);
+                                        muro_publicaciones = new ObjetoMuro(id,titulo_publicacion,contenido_publicacion,
+                                                fecha_publicacion,imagen_publicacion,
+                                                comentarios_publicacion,likes_publicacion,dislikes_publicacion,
+                                                activar_btn_megusta, activar_btn_nomegusta, activar_btn_comentario,activar_btn_compartir);
                                         refDb.child("muro_publicaciones").child(id).setValue(muro_publicaciones);
                                     }
                                 });

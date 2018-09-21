@@ -91,32 +91,19 @@ public class MuroFragment extends Fragment implements RecyclerView.OnTouchListen
         contenedorx.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-
                     y1= event.getY();
-
-
                 }
-
                 if(event.getAction() == MotionEvent.ACTION_UP){
-
-
-
                     y = event.getY();
-
                     float scroll;
-
                     scroll = y1 -y;
-
-
                     if(scroll > -1){
                         System.out.println(scroll);
                         esconder.baroculta(v);
-
                     }else{
                         esconder.barmuestra(v);
-                        Toast.makeText(getActivity(),"HALASTE HACIA ABAJO",Toast.LENGTH_SHORT);
+
                     }
 
                 }
@@ -146,13 +133,16 @@ public class MuroFragment extends Fragment implements RecyclerView.OnTouchListen
                     DataSnapshot muro = dataSnapshot.child("muro_publicaciones");
                     Iterable<DataSnapshot> muroChildren = muro.getChildren();
 
-                    int count=0;
+
                     for (DataSnapshot murox : muroChildren) {
                         ObjetoMuro p = murox.getValue(ObjetoMuro.class);
                         Lista.add(0, p);
-                        count+=1;
+
 
                     }
+
+
+                Lista.subList(10,Lista.size()).clear();
                 xx.notifyDataSetChanged();
             }
 

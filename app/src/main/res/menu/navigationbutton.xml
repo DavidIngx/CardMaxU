@@ -5,7 +5,7 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/baseline_assignment_ind_black_18dp"
-        android:title="Carnet" />
+        android:title="Identificación" />
 
     <item
         android:id="@+id/navigation_dashboard"
