@@ -22,7 +22,7 @@ import com.numa.cardmax.cardmaxu.Fragmentos.CarnetFragment;
 import com.numa.cardmax.cardmaxu.Fragmentos.MuroFragment;
 import com.numa.cardmax.cardmaxu.Fragmentos.PerfilFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MuroMainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     private FrameLayout mainFrame;
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.navigation, menu);
+        inflater.inflate(R.menu.muro_navigation, menu);
 
 
 
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.muro_activity_main);
 
 
 
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intento;
-                intento = new Intent(MainActivity.this, CrearPublicacion.class);
+                intento = new Intent(MuroMainActivity.this, CrearPublicacion.class);
                 startActivity(intento);
                 overridePendingTransition(R.anim.goup, R.anim.hold);
             }
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intento;
-                intento = new Intent(MainActivity.this, BusquedaMuro.class);
+                intento = new Intent(MuroMainActivity.this, BusquedaMuro.class);
                 startActivity(intento);
                 overridePendingTransition(R.anim.goup, R.anim.hold);
 

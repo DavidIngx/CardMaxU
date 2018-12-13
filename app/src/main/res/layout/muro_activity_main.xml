@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/nuevo"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MuroMainActivity">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton3"
@@ -36,7 +36,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigationbutton" />
+        app:menu="@menu/muro_navigationbutton" />
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true">
 
-            <include layout="@layout/toolbar"
+            <include layout="@layout/muro_toolbar"
 
                 ></include>
 

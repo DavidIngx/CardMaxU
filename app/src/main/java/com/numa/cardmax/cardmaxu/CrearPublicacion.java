@@ -8,13 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +17,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.Toast;
-import android.support.design.widget.BottomNavigationView;
 import android.widget.VideoView;
 import android.support.v7.widget.Toolbar;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -73,7 +67,7 @@ public class CrearPublicacion extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crear_publicacion);
+        setContentView(R.layout.muro_activity_crear_publicacion);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Toolbar actionbarx = (Toolbar)findViewById(R.id.toolbar2);
@@ -317,7 +311,7 @@ public class CrearPublicacion extends AppCompatActivity {
 
                     Toast.makeText(CrearPublicacion.this,"Publicado",Toast.LENGTH_LONG).show();
                     Intent aceptarx;
-                    aceptarx = new Intent(CrearPublicacion.this, MainActivity.class);
+                    aceptarx = new Intent(CrearPublicacion.this, MuroMainActivity.class);
                     startActivity(aceptarx);
                 }
               });
@@ -420,7 +414,7 @@ public class CrearPublicacion extends AppCompatActivity {
                     });
                     Toast.makeText(CrearPublicacion.this, "Publicado", Toast.LENGTH_SHORT).show();
                     Intent aceptarx;
-                    aceptarx = new Intent(CrearPublicacion.this, MainActivity.class);
+                    aceptarx = new Intent(CrearPublicacion.this, MuroMainActivity.class);
                     startActivity(aceptarx);
 
                 }

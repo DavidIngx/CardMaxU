@@ -2,49 +2,27 @@ package com.numa.cardmax.cardmaxu.Fragmentos;
 
 
 import android.annotation.SuppressLint;
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.numa.cardmax.cardmaxu.MainActivity;
+import com.numa.cardmax.cardmaxu.MuroMainActivity;
 import com.numa.cardmax.cardmaxu.ObjetoMuro;
 import com.numa.cardmax.cardmaxu.R;
 import com.numa.cardmax.cardmaxu.adaptador;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import static android.support.constraint.Constraints.TAG;
 
 
 /**
@@ -61,7 +39,7 @@ public class MuroFragment extends Fragment implements RecyclerView.OnTouchListen
     private long startClickTime;
     private float y;
     private float y1;
-    private MainActivity esconder;
+    private MuroMainActivity esconder;
     private   View view;
 
 
@@ -75,9 +53,9 @@ public class MuroFragment extends Fragment implements RecyclerView.OnTouchListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_muro, container, false);
+        view= inflater.inflate(R.layout.muro_fragment_muro, container, false);
         setHasOptionsMenu(true);
-        esconder = (MainActivity)getActivity() ;
+        esconder = (MuroMainActivity)getActivity() ;
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Lista  = new ArrayList<ObjetoMuro>();
         xx = new adaptador(Lista);

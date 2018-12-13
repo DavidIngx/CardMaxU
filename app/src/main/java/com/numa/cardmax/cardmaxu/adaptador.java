@@ -1,11 +1,7 @@
 package com.numa.cardmax.cardmaxu;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.collection.LLRBNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +30,7 @@ public class adaptador extends RecyclerView.Adapter<viewHolder> {
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_publicacion_muro, parent, false);
+        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.muro_layout_publicacion_muro, parent, false);
 
         return new viewHolder(vista);
     }
@@ -72,7 +67,7 @@ public class adaptador extends RecyclerView.Adapter<viewHolder> {
             @Override
             public void onClick(View v) {
                 PopupMenu menupop = new PopupMenu(holder.options.getContext(), holder.options);
-                menupop.getMenuInflater().inflate(R.menu.menu_popup_cardview, menupop.getMenu());
+                menupop.getMenuInflater().inflate(R.menu.muro_menu_popup_cardview, menupop.getMenu());
                 menupop.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
